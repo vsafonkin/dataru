@@ -11,7 +11,7 @@ import (
 )
 
 var cpuprofile = flag.String("cpuprofile", "", "dataru -cpuprofile <filename>")
-var cfgPath = flag.String("config", "", "dataru -config <path>")
+var configPath = flag.String("config", "", "dataru -config <path>")
 
 func main() {
 	defer pprof.StopCPUProfile()
@@ -19,7 +19,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := config.LoadConfig(*cfgPath); err != nil {
+	if err := config.LoadConfig(*configPath); err != nil {
 		log.Fatal("Failed to load config:", err)
 	}
 
@@ -51,7 +51,7 @@ func parseFlags() error {
 		}
 		pprof.StartCPUProfile(f)
 	}
-	if *cfgPath == "" {
+	if *configPath == "" {
 		return fmt.Errorf("need to set config path by -config option")
 	}
 	return nil
