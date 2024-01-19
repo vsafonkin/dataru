@@ -52,7 +52,7 @@ func parseFlags() error {
 		pprof.StartCPUProfile(f)
 	}
 	if *cfgPath == "" {
-		return fmt.Errorf("Need to set config path by -config option")
+		return fmt.Errorf("need to set config path by -config option")
 	}
 	return nil
 }
