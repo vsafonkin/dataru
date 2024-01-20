@@ -8,16 +8,25 @@ import (
 )
 
 type Config struct {
-	Logger string
+	Logger string   `yaml:"logger"`
+	Names  []string `yaml:"names"`
 	Server
 }
 
 type Server struct {
 	Host string `yaml:"host"`
-	Port string `yaml:"port"`
+	Port int    `yaml:"port"`
 }
 
 var config Config
+
+var defaultConfig = Config{
+	Logger: "console",
+	Server: Server{
+		Host: "localhost",
+		Port: 8000,
+	},
+}
 
 func LoadConfig(path string) error {
 	return yamlConfig(path)
@@ -44,23 +53,30 @@ func LoadValue(name string) error {
 	return nil
 }
 
-func Logger() (string, error) {
+func Logger() string {
 	if config.Logger == "" {
-		return "", fmt.Errorf("logger has a zero value")
+		fmt.Println("Logger is not set, default value:", defaultConfig.Logger)
+		return defaultConfig.Logger
 	}
-	return config.Logger, nil
+	return config.Logger
 }
 
-func Host() (string, error) {
+func Host() string {
 	if config.Host == "" {
-		return "", fmt.Errorf("host has a zero value")
+		fmt.Println("Host is not set, default value:", defaultConfig.Server.Host)
+		return defaultConfig.Server.Host
 	}
-	return config.Host, nil
+	return config.Host
 }
 
-func Port() (string, error) {
-	if config.Port == "" {
-		return "", fmt.Errorf("port has a zero value")
+func Port() int {
+	if config.Port == 0 {
+		fmt.Println("Port is not set, default value:", defaultConfig.Server.Port)
+		return defaultConfig.Server.Port
 	}
-	return config.Port, nil
+	return config.Port
+}
+
+func Names() []string {
+	return config.Names
 }

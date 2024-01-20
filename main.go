@@ -23,23 +23,19 @@ func main() {
 		log.Fatal("Failed to load config:", err)
 	}
 
-	host, err := config.Host()
-	if err != nil {
-		fmt.Println(err)
-	}
+	host := config.Host()
 	fmt.Println(host)
 
-	port, err := config.Port()
-	if err != nil {
-		fmt.Println(err)
-	}
+	port := config.Port()
 	fmt.Println(port)
 
-	logger, err := config.Logger()
-	if err != nil {
-		fmt.Println(err)
-	}
+	logger := config.Logger()
 	fmt.Println(logger)
+
+	names := config.Names()
+	for _, v := range names {
+		fmt.Println(v)
+	}
 }
 
 func parseFlags() error {
