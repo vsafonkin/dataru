@@ -14,7 +14,7 @@ imports:
 
 build: fmt
 	go build -ldflags='-s -w' -o ./bin/dataru main.go
-	./bin/dataru
+	./bin/dataru -config ./default_config.yaml
 .PHONY:build
 
 checkrace:
