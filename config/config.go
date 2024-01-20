@@ -20,14 +20,6 @@ type Server struct {
 
 var config Config
 
-var defaultConfig = Config{
-	Logger: "console",
-	Server: Server{
-		Host: "localhost",
-		Port: 8000,
-	},
-}
-
 func LoadConfig(path string) error {
 	return yamlConfig(path)
 }
